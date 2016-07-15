@@ -38,5 +38,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^categories/$', places_views.category_list),
     url(r'^categories/(?P<pk>[0-9]+)/$', places_views.category_detail),
+    url(r'^places/(?P<pk>[0-9]+)/$', places_views.place_list),
+    url(r'^places/(?P<cat>[0-9]+)/(?P<pid>[0-9]+)/$', places_views.place_detail),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

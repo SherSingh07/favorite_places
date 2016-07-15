@@ -9,7 +9,7 @@ from django.template import RequestContext
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from places.serializers import CategorySerializer
+from places.serializers import CategorySerializer, PlaceSerializer
 
 from places.forms import LoginForm
 from places.models import Category
@@ -81,6 +81,61 @@ def category_detail(request, pk):
         category.delete()
         return HttpResponse(status=204)
 
+@csrf_exempt
+def place_list(request, pk):
+    """
+    List all code places, or create a new place.
+    """
+    try:
+        category = Category.objects.get(pk=pk)
+    except Category.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        places = Place.objects.filter(category=category)	
+        serializer = PlaceSerializer(places, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = PlaceSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def place_detail(request, cat, pk):
+    """
+    functions retrieves, updates or deletes a place.
+    """
+
+    try:
+        category = Category.objects.get(pk=cat)
+    except Category.DoesNotExist:
+        return HttpResponse(status=404)
+
+    try:
+        place = Place.objects.get(category=category, pk=pk)
+    except Place.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = PlaceSerializer(place)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = PlaceSerializer(place, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data)
+        return JSONResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        place.delete()
+        return HttpResponse(status=204)
 
 ################################################
 #                                              #
