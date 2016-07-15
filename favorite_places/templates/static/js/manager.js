@@ -20,6 +20,9 @@ angular
              $http.get("/categories/")
                  .then(function(response){ 
                      $scope.categories = response.data; 
+
+                     // get places for first category
+                     $scope.GetAllPlaces($scope.categories[0].id);
                  });
         };
 
@@ -37,7 +40,6 @@ angular
 
         // show categories on start
         $scope.GetAllCategories();
-        $scope.GetAllPlaces(1);
 });
 
 myApp.config(function($interpolateProvider) {
