@@ -20,3 +20,21 @@ class Category(models.Model):
         function returns unicode representation of category
         """
         return "%s" % self.title
+
+
+class Place(models.Model):
+    """
+    model for user places
+    """
+    user = models.ForeignKey(User)	
+    category = models.ForeignKey(Category)	
+    img = models.FileField(upload_to = 'photos/')
+    lat = models.DecimalField(max_digits=12, decimal_places=6)
+    lng = models.DecimalField(max_digits=12, decimal_places=6)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created at'))
+    
+    def __unicode__(self):
+        """
+        function returns unicode representation of place
+        """
+        return "%s" % self.img
