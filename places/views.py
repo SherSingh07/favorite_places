@@ -12,7 +12,7 @@ from rest_framework.parsers import JSONParser
 from places.serializers import CategorySerializer, PlaceSerializer
 
 from places.forms import LoginForm
-from places.models import Category
+from places.models import Category, Place
 
 class JSONResponse(HttpResponse):
     """
