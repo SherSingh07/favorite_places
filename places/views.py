@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.template.context_processors import csrf
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -11,6 +12,7 @@ from rest_framework.parsers import JSONParser
 from places.serializers import CategorySerializer
 
 from places.forms import LoginForm
+from places.models import Category
 
 class JSONResponse(HttpResponse):
     """
@@ -26,6 +28,58 @@ class JSONResponse(HttpResponse):
 def home(request):
     data = {}
     return render_to_response('index.html', data, context_instance=RequestContext(request))
+
+
+################################################
+#                                              #
+#               REST APIs                      #
+#                                              #
+################################################
+
+@csrf_exempt
+def category_list(request):
+    """
+    List all code categories, or create a new category.
+    """
+    if request.method == 'GET':
+        categories = Category.objects.all()	
+        serializer = CategorySerializer(categories, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = CategorySerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def category_detail(request, pk):
+    """
+    functions retrieves, updates or deletes a category.
+    """
+    try:
+        category = Category.objects.get(pk=pk)
+    except Category.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = CategorySerializer(category)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = CategorySerializer(category, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data)
+        return JSONResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        category.delete()
+        return HttpResponse(status=204)
 
 
 ################################################

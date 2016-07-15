@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 
@@ -33,5 +33,10 @@ urlpatterns = [
 
     # registration
     url(r'^register/$', reg_views.regform, name='regform'),
+
+    # django rest framework urls
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^categories/$', places_views.category_list),
+    url(r'^categories/(?P<pk>[0-9]+)/$', places_views.category_detail),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
