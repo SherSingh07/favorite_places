@@ -14,14 +14,11 @@
     <body ng-app="placeModule">
         <div ng-controller="placeController" style="width: 1200px; margin: auto">
         <center><h3>[[ message ]]</h3></center>
-        <button ng-click="GetAllCategories()">Get All Data</button>
             {% if request and not request.user.is_anonymous %}
             Welcome: <b>{{ request.user }}</b>
             {% endif %}
 
-            <a class="btn btn-primary" href="/">Categories</a>  
             <a class="btn btn-primary" href="/add_category/">Add Category</a> 
-            <a class="btn btn-primary" href="/places/">Places</a>
             <a class="btn btn-primary" href="/add_place/">Add Place</a>
             {% if request and not request.user.is_anonymous %}
             <a class="btn btn-primary" href="/logout/">Logout</a>
