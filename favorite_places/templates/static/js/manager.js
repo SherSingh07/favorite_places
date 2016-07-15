@@ -17,14 +17,14 @@ angular
 	$scope.categories = [];
 
         $scope.GetAllCategories = function () {
-             $http.get("http://localhost:8000/categories/")
+             $http.get("/categories/")
                  .then(function(response){ 
                      $scope.categories = response.data; 
                  });
         };
 
-        $scope.GetAllPlaces = function () {
-             $http.get("http://localhost:8000/places/1")
+        $scope.GetAllPlaces = function (pid) {
+             $http.get("/places/" + pid)
                  .then(function(response){ 
                      $scope.places = response.data; 
                  });
@@ -37,7 +37,7 @@ angular
 
         // show categories on start
         $scope.GetAllCategories();
-        $scope.GetAllPlaces();
+        $scope.GetAllPlaces(1);
 });
 
 myApp.config(function($interpolateProvider) {
