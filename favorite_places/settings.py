@@ -58,7 +58,7 @@ ROOT_URLCONF = 'favorite_places.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['favorite_places/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
