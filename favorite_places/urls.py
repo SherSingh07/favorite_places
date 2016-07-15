@@ -23,8 +23,8 @@ urlpatterns = [
     url(r'^$', places_views.home, name='home'),
 
     # login/logout
-    url(r'^login/$', album_views.login_page, name='login_page'),
-    url(r'^logout/$', album_views.logout_page, name='logout_page'),
-    url(r'^accounts/logout/$', album_views.logout_page, name='logout_page'),
-    url(r'^accounts/login/$', album_views.login_page, name='login_page'),
+    url(r'^login/$', places_views.login_page, name='login_page'),
+    url(r'^logout/$', places_views.logout_page, name='logout_page'),
+    url(r'^accounts/logout/$', places_views.logout_page, name='logout_page'),
+    url(r'^accounts/login/$', places_views.login_page, name='login_page'),
 ]
