@@ -23,6 +23,9 @@ class Category(models.Model):
         """
         return "%s" % self.title
 
+    class Meta:
+        verbose_name_plural = "categories"
+
 
 class Place(models.Model):
     """
