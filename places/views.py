@@ -4,12 +4,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.template.context_processors import csrf
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from places.forms import LoginForm
 
 @login_required
 def home(request):
-    return HttpResponse("home page")
+    data = {}
+    return render_to_response('index.html', data, context_instance=RequestContext(request))
 
 
 ################################################
