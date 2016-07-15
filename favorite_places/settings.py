@@ -125,3 +125,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 from local_settings import *
+
+###################################
+#                                 #
+#   PATHS FOR FILE UPLOADS etc    #
+#                                 #
+###################################
+MEDIA_URL = '/photos/'
+MEDIA_ROOT = '/home/wb9/work/shersingh/favorite_places'
