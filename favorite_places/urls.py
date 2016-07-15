@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 import places.views as places_views
+import reg.views as reg_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,4 +28,7 @@ urlpatterns = [
     url(r'^logout/$', places_views.logout_page, name='logout_page'),
     url(r'^accounts/logout/$', places_views.logout_page, name='logout_page'),
     url(r'^accounts/login/$', places_views.login_page, name='login_page'),
+
+    # registration
+    url(r'^register/$', reg_views.regform, name='regform'),
 ]

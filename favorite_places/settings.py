@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'places.apps.PlacesConfig',
+    'reg.apps.RegConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
