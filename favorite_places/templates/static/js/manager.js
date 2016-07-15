@@ -21,3 +21,8 @@ angular
 		//$scope.places.push({ title: $scope.new_place, completed: false});
 	}
 });
+
+myApp.config(function($interpolateProvider) {
+  $interpolateProvider.startSymbol('[[');
+  $interpolateProvider.endSymbol(']]');
+});
