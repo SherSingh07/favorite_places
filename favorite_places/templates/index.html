@@ -3,6 +3,8 @@
 
 {% block body %}
 
-index page
+            <div ng-repeat="category in categories">
+                [[ category.title ]]<br>
+            </div>
 
 {% endblock %}
