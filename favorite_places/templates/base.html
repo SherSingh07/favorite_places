@@ -12,8 +12,8 @@
     </head>
 
     <body ng-app="placeModule">
-        <center><h3>{{ message }}</h3></center>
         <div ng-controller="placeController" style="width: 1200px; margin: auto">
+        <center><h3>[[ message ]]</h3></center>
             {% if request and not request.user.is_anonymous %}
             Welcome: <b>{{ request.user }}</b>
             {% endif %}
