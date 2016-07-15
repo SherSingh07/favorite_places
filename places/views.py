@@ -6,7 +6,21 @@ from django.template.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from places.serializers import CategorySerializer
+
 from places.forms import LoginForm
+
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
+
 
 @login_required
 def home(request):
