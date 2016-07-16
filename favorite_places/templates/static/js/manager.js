@@ -10,7 +10,7 @@ angular
 .module("placeModule", [])
 .controller("placeController", function($scope, $http) {	
 
-	$scope.message = "Places Manager Demo By Singh";
+	$scope.message = "Favorite Places";
 
 	// some place objects
 	$scope.places = [];
